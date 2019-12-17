@@ -4,6 +4,10 @@ import mongoose from 'mongoose';
 import { BASE_PATH, MONGODB_URI } from './config';
 import { logger } from './utils/logger';
 import { globalMiddlewares, errorHandler } from './middleware';
+import {userRouter} from './api/User';
+import { authRouter } from './api/Auth';
+import { studentRouter } from './api/Student';
+import { CourseAdviserRouter } from './api/CourseAdviser';
 
 class App {
   constructor() {
@@ -20,8 +24,10 @@ class App {
   }
 
   mountRoutes() {
-    // this.express.use(`${this.basePath}/auth`, authRouter);
-    
+    this.express.use(`${this.basePath}/users`, userRouter);
+    this.express.use(`${this.basePath}/auth`, authRouter);
+    this.express.use(`${this.basePath}/students`, studentRouter);   
+    this.express.use(`${this.basePath}/course-advisers`, CourseAdviserRouter); 
   }
 
   registerMiddlewares() {
